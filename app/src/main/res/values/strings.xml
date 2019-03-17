@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">InsultGenerator</string>
+    <string name="btn_send_text">Send</string>
+    <string name="pagination_dialog_title">Pagination size</string>
+    <string name="all_ok">OK</string>
+    <string name="menu_settings_title">Settings</string>
+    <string name="tv_pagination_text">Change pagination</string>
+</resources>
