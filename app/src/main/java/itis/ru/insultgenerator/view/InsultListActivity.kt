@@ -12,25 +12,26 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import itis.ru.insultgenerator.InsultAdapter
 import itis.ru.insultgenerator.R
+import itis.ru.insultgenerator.di.component.DaggerActivityComponent
+import itis.ru.insultgenerator.di.module.PresenterModule
 import itis.ru.insultgenerator.model.Insult
-import itis.ru.insultgenerator.model.InsultInteractor
-import itis.ru.insultgenerator.model.SettingsInteractor
 import itis.ru.insultgenerator.presenter.InsultListActivityPresenter
 import kotlinx.android.synthetic.main.activity_insult_list.*
+import javax.inject.Inject
 
 class InsultListActivity : MvpAppCompatActivity(), InsultListView {
+    @Inject
     @InjectPresenter
     lateinit var presenter: InsultListActivityPresenter
 
     @ProvidePresenter
-    fun provideInsultListActivityPresenter(): InsultListActivityPresenter {
-        return InsultListActivityPresenter(InsultInteractor(), SettingsInteractor())
-    }
+    fun provideInsultListActivityPresenter() = presenter
 
     private var insultAdapter: InsultAdapter? = null
     private var isLoading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injectDependency()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_insult_list)
         swipeContainer.setOnRefreshListener {
@@ -116,6 +117,13 @@ class InsultListActivity : MvpAppCompatActivity(), InsultListView {
             }
         })
         initAdapter()
+    }
+
+    private fun injectDependency() {
+        val activityComponent = DaggerActivityComponent.builder()
+            .presenterModule(PresenterModule(this))
+            .build()
+        activityComponent.inject(this)
     }
 
     private fun initAdapter() {
