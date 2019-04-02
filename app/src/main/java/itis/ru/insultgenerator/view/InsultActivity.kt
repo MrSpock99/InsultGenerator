@@ -4,10 +4,14 @@ import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import itis.ru.insultgenerator.R
+import itis.ru.insultgenerator.di.component.DaggerActivityComponent
+import itis.ru.insultgenerator.di.module.PresenterModule
 import itis.ru.insultgenerator.presenter.InsultActivityPresenter
 import kotlinx.android.synthetic.main.activity_insult.*
+import javax.inject.Inject
 
 class InsultActivity : MvpAppCompatActivity(), InsultView {
+    @Inject
     @InjectPresenter
     lateinit var presenter: InsultActivityPresenter
 
@@ -31,5 +35,13 @@ class InsultActivity : MvpAppCompatActivity(), InsultView {
         presenter.setInsultTv(insult)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        injectDependency()
+    }
+
+    private fun injectDependency() {
+        val activityComponent = DaggerActivityComponent.builder()
+            .presenterModule(PresenterModule(this))
+            .build()
+        activityComponent.inject(this)
     }
 }

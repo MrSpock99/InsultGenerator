@@ -6,21 +6,23 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import itis.ru.insultgenerator.R
-import itis.ru.insultgenerator.model.SettingsInteractor
+import itis.ru.insultgenerator.di.component.DaggerActivityComponent
+import itis.ru.insultgenerator.di.module.PresenterModule
 import itis.ru.insultgenerator.presenter.SettingsActivityPresenter
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.dialog_pagination.view.*
+import javax.inject.Inject
 
 class SettingsActivity : MvpAppCompatActivity(), SettingsView {
+    @Inject
     @InjectPresenter
     lateinit var presenter: SettingsActivityPresenter
 
     @ProvidePresenter
-    fun provideSettingsActivityPresenter(): SettingsActivityPresenter {
-        return SettingsActivityPresenter(SettingsInteractor())
-    }
+    fun provideSettingsActivityPresenter(): SettingsActivityPresenter = presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injectDependency()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         init()
@@ -42,5 +44,12 @@ class SettingsActivity : MvpAppCompatActivity(), SettingsView {
         tv_pagination_settings.setOnClickListener {
             presenter.showPaginationDialog()
         }
+    }
+
+    private fun injectDependency() {
+        val activityComponent = DaggerActivityComponent.builder()
+            .presenterModule(PresenterModule(this))
+            .build()
+        activityComponent.inject(this)
     }
 }

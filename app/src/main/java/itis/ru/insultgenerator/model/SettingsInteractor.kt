@@ -1,13 +1,13 @@
 package itis.ru.insultgenerator.model
 
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import itis.ru.insultgenerator.App
 
 private const val APP_SETTINGS: String = "APP_SETTINGS"
 private const val PREF_PAGINATION_SIZE: String = "PREF_PAGINATION_SIZE"
 
-class SettingsInteractor {
-    private val preferences = App.context?.getSharedPreferences(APP_SETTINGS, MODE_PRIVATE)
+class SettingsInteractor(private val context: Context) {
+    private val preferences = context.getSharedPreferences(APP_SETTINGS, MODE_PRIVATE)
 
     fun savePaginationSize(size: Int) {
         val editor = preferences?.edit()
