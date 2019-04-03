@@ -7,12 +7,15 @@ import io.reactivex.rxkotlin.subscribeBy
 import itis.ru.insultgenerator.model.Insult
 import itis.ru.insultgenerator.model.InsultInteractor
 import itis.ru.insultgenerator.model.SettingsInteractor
+import itis.ru.insultgenerator.utils.Screens
 import itis.ru.insultgenerator.view.InsultListView
+import ru.terrakok.cicerone.Router
 
 @InjectViewState
 class InsultListActivityPresenter(
     private val insultInteractor: InsultInteractor,
-    private val settingsInteractor: SettingsInteractor
+    private val settingsInteractor: SettingsInteractor,
+    private val router: Router
 ) : MvpPresenter<InsultListView>() {
 
     fun updateInsultList() = insultInteractor
@@ -41,7 +44,7 @@ class InsultListActivityPresenter(
             Log.d("MYLOG", it.toString())
         })
 
-    fun onInsultClick(insult: Insult) = viewState.navigateToDetails(insult)
+    fun onInsultClick(insult: Insult) = router.navigateTo(Screens.InsultScreen(insult.insult ?: ""))
 
     fun loadNextElements(i: Int) = insultInteractor
         .getInsultList()
@@ -56,5 +59,5 @@ class InsultListActivityPresenter(
 
     fun getPaginationSize(): Int = settingsInteractor.getPaginationSize() ?: 0
 
-    fun onMenuItemClick() = viewState.navigateToSettings()
+    fun onMenuItemClick() = router.navigateTo(Screens.SettingsScreen())
 }

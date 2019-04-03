@@ -13,6 +13,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
+import ru.terrakok.cicerone.Router
 
 class InsultListActivityPresenterTest {
     private lateinit var presenter: InsultListActivityPresenter
@@ -22,6 +23,8 @@ class InsultListActivityPresenterTest {
     private lateinit var insultInteractor: InsultInteractor
     @Mock
     private lateinit var settingsInteractor: SettingsInteractor
+    @Mock
+    private lateinit var router: Router
 
     private val testList: MutableList<Insult> = listOf(Insult(), Insult()).toMutableList()
 
@@ -33,7 +36,7 @@ class InsultListActivityPresenterTest {
         `when`(insultInteractor.getInsultListFromDb()).thenReturn(Single.just(testList))
         `when`(settingsInteractor.getPaginationSize()).thenReturn(0)
         doNothing().`when`(settingsInteractor).savePaginationSize(ArgumentMatchers.isA(Int::class.java))
-        presenter = InsultListActivityPresenter(insultInteractor, settingsInteractor)
+        presenter = InsultListActivityPresenter(insultInteractor, settingsInteractor, router)
         presenter.setViewState(view)
     }
 

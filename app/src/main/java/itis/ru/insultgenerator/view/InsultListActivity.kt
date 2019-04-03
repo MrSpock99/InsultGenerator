@@ -1,6 +1,5 @@
 package itis.ru.insultgenerator.view
 
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -16,7 +15,12 @@ import itis.ru.insultgenerator.di.component.DaggerActivityComponent
 import itis.ru.insultgenerator.di.module.PresenterModule
 import itis.ru.insultgenerator.model.Insult
 import itis.ru.insultgenerator.presenter.InsultListActivityPresenter
+import itis.ru.insultgenerator.utils.Screens
 import kotlinx.android.synthetic.main.activity_insult_list.*
+import ru.terrakok.cicerone.Navigator
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.commands.Back
+import ru.terrakok.cicerone.commands.Forward
 import javax.inject.Inject
 
 class InsultListActivity : MvpAppCompatActivity(), InsultListView {
@@ -26,6 +30,30 @@ class InsultListActivity : MvpAppCompatActivity(), InsultListView {
 
     @ProvidePresenter
     fun provideInsultListActivityPresenter() = presenter
+
+    @Inject
+    lateinit var navigationHolder: NavigatorHolder
+
+    private val navigator = Navigator {
+        when {
+            it[0] is Forward -> {
+                val forward = it[0] as Forward
+                when {
+                    forward.screen.screenKey == Screens.INSULT_SCREEN -> {
+                        val intent = (forward.screen as Screens.InsultScreen).getActivityIntent(this)
+                        startActivity(intent)
+                    }
+                    forward.screen.screenKey == Screens.SETTINGS_SCREEN -> {
+                        val intent = (forward.screen as Screens.SettingsScreen).getActivityIntent(this)
+                        startActivity(intent)
+                    }
+                }
+            }
+            it[0] is Back -> {
+                onBackPressed()
+            }
+        }
+    }
 
     private var insultAdapter: InsultAdapter? = null
     private var isLoading = false
@@ -38,6 +66,16 @@ class InsultListActivity : MvpAppCompatActivity(), InsultListView {
             refreshInsulsts()
         }
         init()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        navigationHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        navigationHolder.removeNavigator()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -72,17 +110,6 @@ class InsultListActivity : MvpAppCompatActivity(), InsultListView {
     override fun hideProgress() {
         swipeContainer.isRefreshing = false
         isLoading = false
-    }
-
-    override fun navigateToDetails(insult: Insult) {
-        val intent = Intent(this@InsultListActivity, InsultActivity::class.java)
-        intent.putExtra(EXTRA_INSULT, insult.insult)
-        startActivity(intent)
-    }
-
-    override fun navigateToSettings() {
-        val intent = Intent(this@InsultListActivity, SettingsActivity::class.java)
-        startActivity(intent)
     }
 
     override fun showProgress() {

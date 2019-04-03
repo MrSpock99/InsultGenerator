@@ -8,6 +8,7 @@ import itis.ru.insultgenerator.model.SettingsInteractor
 import itis.ru.insultgenerator.presenter.InsultActivityPresenter
 import itis.ru.insultgenerator.presenter.InsultListActivityPresenter
 import itis.ru.insultgenerator.presenter.SettingsActivityPresenter
+import ru.terrakok.cicerone.Router
 
 @Module
 class PresenterModule(private val context: Context) {
@@ -19,14 +20,15 @@ class PresenterModule(private val context: Context) {
 
     @Provides
     fun provideInsultListActivityPresenter(
-        insultInteractor: InsultInteractor,
-        settingsInteractor: SettingsInteractor
-    ): InsultListActivityPresenter = InsultListActivityPresenter(insultInteractor, settingsInteractor)
+            insultInteractor: InsultInteractor,
+            settingsInteractor: SettingsInteractor,
+            router: Router
+    ): InsultListActivityPresenter = InsultListActivityPresenter(insultInteractor, settingsInteractor, router)
 
     @Provides
-    fun provideInsultActivityPresenter(): InsultActivityPresenter = InsultActivityPresenter()
+    fun provideInsultActivityPresenter(router: Router): InsultActivityPresenter = InsultActivityPresenter(router)
 
     @Provides
     fun provideSettingsActivityPresenter(settingsInteractor: SettingsInteractor): SettingsActivityPresenter =
-        SettingsActivityPresenter(settingsInteractor)
+            SettingsActivityPresenter(settingsInteractor)
 }

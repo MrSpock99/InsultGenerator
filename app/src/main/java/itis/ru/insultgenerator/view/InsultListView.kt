@@ -11,6 +11,4 @@ interface InsultListView : MvpView {
     fun addItemsToListView(list: List<Insult>)
     fun showProgress()
     fun hideProgress()
-    fun navigateToDetails(insult: Insult)
-    fun navigateToSettings()
 }

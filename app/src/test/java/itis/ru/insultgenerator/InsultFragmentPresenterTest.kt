@@ -8,7 +8,7 @@ import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
-class InsultActivityPresenterTest {
+class InsultFragmentPresenterTest {
     private lateinit var presenter: InsultActivityPresenter
     @Mock
     private lateinit var view: InsultView
