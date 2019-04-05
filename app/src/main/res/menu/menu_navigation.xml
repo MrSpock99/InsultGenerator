@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_settings"
+        android:id="@+id/destination_second"
         android:icon="@drawable/ic_home"
         android:title="Second" />
     <item
-        android:id="@+id/nav_activity_component"
+        android:id="@+id/destination_third"
         android:icon="@drawable/ic_camera"
         android:title="Third" />
+    <item
+        android:id="@+id/destination_forth"
+        android:icon="@drawable/ic_settings"
+        android:title="Forth" />
 </menu>

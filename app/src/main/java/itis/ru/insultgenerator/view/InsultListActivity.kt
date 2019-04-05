@@ -1,11 +1,12 @@
 package itis.ru.insultgenerator.view
 
-import android.content.res.Configuration
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.content.ContextCompat.startActivity
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -14,6 +15,7 @@ import itis.ru.insultgenerator.R
 import itis.ru.insultgenerator.di.component.DaggerActivityComponent
 import itis.ru.insultgenerator.di.module.PresenterModule
 import itis.ru.insultgenerator.model.Insult
+import itis.ru.insultgenerator.navigation.MainActivity
 import itis.ru.insultgenerator.presenter.InsultListActivityPresenter
 import itis.ru.insultgenerator.utils.Screens
 import kotlinx.android.synthetic.main.activity_insult_list.*
@@ -86,16 +88,18 @@ class InsultListActivity : MvpAppCompatActivity(), InsultListView {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.menu_settings ->
+            R.id.nav_settings ->
                 presenter.onMenuItemClick()
+            R.id.nav_activity_component ->
+                startActivity(Intent(this,MainActivity::class.java))
         }
         return true
     }
-
+/*
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig)
         presenter.updateInsultListFromCache()
-    }
+    }*/
 
     override fun updateListView(list: MutableList<Insult>) {
         insultAdapter?.submitList(list)

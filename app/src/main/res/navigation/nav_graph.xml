@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/destination_forth">
+
+    <fragment
+        android:id="@+id/destination_first"
+        android:name="itis.ru.insultgenerator.navigation.FirstFragment"
+        android:label="First"
+        tools:layout="@layout/fragment_first" />
+    <fragment
+        android:id="@+id/destination_second"
+        android:name="itis.ru.insultgenerator.navigation.SecondFragment"
+        android:label="Second"
+        tools:layout="@layout/fragment_second">
+        <action
+            android:id="@+id/action_destination_second_to_destination_fith"
+            app:destination="@id/destination_fith" />
+        <argument
+            android:name="arg_example"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/destination_third"
+        android:name="itis.ru.insultgenerator.navigation.ThirdFragment"
+        android:label="Photos"
+        tools:layout="@layout/fragment_third">
+        <!--<action
+                android:id="@+id/next_action"
+                app:destination="@id/destination_" />
+        <argument
+                android:name="numOfPhotos"
+                android:defaultValue="0"
+                app:argType="integer" />-->
+        <action
+            android:id="@+id/action_destination_third_to_insultListActivity"
+            app:destination="@id/insultListActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/destination_forth"
+        android:name="itis.ru.insultgenerator.navigation.FragmentForth"
+        android:label="fragment_forth"
+        tools:layout="@layout/fragment_forth" />
+    <fragment
+        android:id="@+id/destination_sixth"
+        android:name="itis.ru.insultgenerator.navigation.FragmentSixth"
+        android:label="fragment_sixth"
+        tools:layout="@layout/fragment_sixth" />
+    <fragment
+        android:id="@+id/destination_fith"
+        android:name="itis.ru.insultgenerator.navigation.FragmentFith"
+        android:label="FragmentFith">
+        <action
+            android:id="@+id/action_destination_fith_to_destination_sixth"
+            app:destination="@id/destination_sixth" />
+    </fragment>
+    <activity
+        android:id="@+id/insultListActivity"
+        android:name="itis.ru.insultgenerator.view.InsultListActivity"
+        android:label="activity_insult_list"
+        tools:layout="@layout/activity_insult_list" />
+</navigation>

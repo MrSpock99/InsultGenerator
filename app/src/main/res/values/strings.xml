@@ -5,4 +5,7 @@
     <string name="all_ok">OK</string>
     <string name="menu_settings_title">Settings</string>
     <string name="tv_pagination_text">Change pagination</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

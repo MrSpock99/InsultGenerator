@@ -5,13 +5,15 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+            android:name="androidx.multidex.MultiDexApplication"
             android:allowBackup="true"
-            android:name="android.support.multidex.MultiDexApplication"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".navigation.MainActivity">
+        </activity>
         <activity
                 android:name=".view.InsultListActivity"
                 android:configChanges="orientation|screenSize">

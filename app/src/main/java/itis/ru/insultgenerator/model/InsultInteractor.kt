@@ -1,7 +1,7 @@
 package itis.ru.insultgenerator.model
 
 import android.content.Context
-import android.support.annotation.Nullable
+import androidx.annotation.Nullable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
