@@ -3,14 +3,15 @@ package itis.ru.insultgenerator.database
 import androidx.room.*
 import io.reactivex.Single
 import itis.ru.insultgenerator.model.Insult
+import kotlinx.coroutines.Deferred
 
 @Dao
 interface InsultDataDao {
     @Query("SELECT * FROM insult")
-    fun getAll(): Single<MutableList<Insult>>
+    fun getAllAsync(): Deferred<MutableList<Insult>>
 
     @Query("SELECT * FROM insult WHERE id = :id")
-    fun getById(id: Int): Single<Insult>
+    fun getByIdAsync(id: Int): Deferred<Insult>
 
     @Query("DELETE FROM insult")
     fun nukeTable()

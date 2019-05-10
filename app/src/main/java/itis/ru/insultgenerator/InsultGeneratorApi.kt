@@ -1,10 +1,10 @@
 package itis.ru.insultgenerator
 
-import io.reactivex.Observable
 import itis.ru.insultgenerator.model.Insult
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 
-interface InsultGeneratorApi{
+interface InsultGeneratorApi {
     @GET("generate_insult.php?lang=en&type=json")
-    fun getInsult(): Observable<Insult>
+    fun getInsultAsync(): Deferred<Insult>
 }

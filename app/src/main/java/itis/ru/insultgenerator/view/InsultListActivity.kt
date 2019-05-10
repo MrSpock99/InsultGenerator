@@ -1,6 +1,7 @@
 package itis.ru.insultgenerator.view
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -95,11 +96,11 @@ class InsultListActivity : MvpAppCompatActivity(), InsultListView {
         }
         return true
     }
-/*
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         presenter.updateInsultListFromCache()
-    }*/
+    }
 
     override fun updateListView(list: MutableList<Insult>) {
         insultAdapter?.submitList(list)

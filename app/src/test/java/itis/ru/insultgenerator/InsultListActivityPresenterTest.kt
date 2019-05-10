@@ -32,7 +32,7 @@ class InsultListActivityPresenterTest {
     @Throws(Exception::class)
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        `when`(insultInteractor.getInsultList()).thenReturn(Single.just(testList))
+        `when`(insultInteractor.getInsultListAsync()).thenReturn(Single.just(testList))
         `when`(insultInteractor.getInsultListFromDb()).thenReturn(Single.just(testList))
         `when`(settingsInteractor.getPaginationSize()).thenReturn(0)
         doNothing().`when`(settingsInteractor).savePaginationSize(ArgumentMatchers.isA(Int::class.java))
@@ -43,7 +43,7 @@ class InsultListActivityPresenterTest {
     @Test
     fun testUpdateInsultListWhenSuccess() {
         presenter.updateInsultList()
-        verify(insultInteractor).getInsultList()
+        verify(insultInteractor).getInsultListAsync()
         verify(view).updateListView(Mockito.anyList())
     }
 
