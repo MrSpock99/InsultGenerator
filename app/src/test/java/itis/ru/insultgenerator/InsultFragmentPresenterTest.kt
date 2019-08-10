@@ -1,7 +1,6 @@
 package itis.ru.insultgenerator
 
 import itis.ru.insultgenerator.presenter.InsultActivityPresenter
-import itis.ru.insultgenerator.view.InsultView
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock

@@ -1,39 +1,24 @@
 package itis.ru.insultgenerator.model
 
 import android.content.Context
-import android.support.annotation.Nullable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import itis.ru.insultgenerator.InsultGeneratorApi
 import itis.ru.insultgenerator.database.InsultDataDao
-import itis.ru.insultgenerator.di.component.DaggerDataComponent
-import itis.ru.insultgenerator.di.module.DatabaseModule
-import itis.ru.insultgenerator.di.module.NetModule
 import javax.inject.Inject
 
 private const val TAG: String = "InsultInteractor"
 
-class InsultInteractor(private val context: Context) {
-    @Inject
-    lateinit var service: InsultGeneratorApi
-
-    @Inject
-    @Nullable
-    lateinit var insultDataDao: InsultDataDao
-
-    init {
-        injectDependency()
-    }
-
-    private fun injectDependency() {
-        val netComponent = DaggerDataComponent.builder()
-            .netModule(NetModule())
-            .databaseModule(DatabaseModule(context))
-            .build()
-        netComponent.inject(this)
-    }
+class InsultInteractor @Inject constructor(
+    private val context: Context,
+    var service: InsultGeneratorApi,
+    var insultDataDao: InsultDataDao
+) {
+    fun getInsult(): Observable<Insult> = service.getInsult()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
 
     fun getInsultList(): Single<MutableList<Insult>> =
         Observable.fromIterable(ITERABLE_ARRAY)

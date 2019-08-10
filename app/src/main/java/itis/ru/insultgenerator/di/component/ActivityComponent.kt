@@ -1,15 +1,15 @@
 package itis.ru.insultgenerator.di.component
 
 import dagger.Component
-import itis.ru.insultgenerator.di.module.NavigationModule
-import itis.ru.insultgenerator.di.module.PresenterModule
-import itis.ru.insultgenerator.view.InsultActivity
-import itis.ru.insultgenerator.view.InsultListActivity
-import itis.ru.insultgenerator.view.SettingsActivity
+import itis.ru.insultgenerator.di.module.*
+import itis.ru.insultgenerator.view.GetInsultActivity
+import javax.inject.Singleton
 
-@Component(modules = [PresenterModule::class, NavigationModule::class])
+@Singleton
+@Component(
+    modules = [AppModule::class, NetModule::class, DatabaseModule::class, ViewModelFactoryModule::class,
+        ViewModelModule::class]
+)
 interface ActivityComponent {
-    fun inject(insultActivity: InsultActivity)
-    fun inject(insultListActivity: InsultListActivity)
-    fun inject(settingsActivity: SettingsActivity)
+    fun inject(getInsultActivity: GetInsultActivity)
 }
