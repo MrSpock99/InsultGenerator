@@ -1,6 +1,6 @@
 package itis.ru.insultgenerator.di.module
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import itis.ru.insultgenerator.utils.ViewModelFactory
